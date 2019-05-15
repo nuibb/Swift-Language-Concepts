@@ -135,3 +135,58 @@ oddDigits.symmetricDifference(singleDigitPrimeNumbers).sorted()// [1, 2, 9]
  farmAnimals.isSuperset(of: houseAnimals)// true
  houseAnimals.isStrictSubset(of: farmAnimals)// true
  farmAnimals.isDisjoint(with: cityAnimals)// true
+
+//Creating empty dictionary
+var namesOfIntegers = [Int: String]()
+
+//Creating a Dictionary with a Dictionary Literal
+var airports: [String: String] = ["YYZ": "Toronto Pearson", "DUB": "Dublin"]
+print("The airports dictionary contains \(airports.count) items.")
+if airports.isEmpty {
+    print("The airports dictionary is empty.")
+}
+
+//You can also use subscript syntax to add/change the value associated with a particular key:
+airports["LHR"] = "London Heathrow"
+
+//The updateValue(_:forKey:) method returns an optional value of the dictionary’s value type. For a dictionary that stores String values, for example, the method returns a value of type String?, or “optional String”. This optional value contains the old value for that key if one existed before the update, or nil if no value existed:
+if let oldValue = airports.updateValue("Dublin Airport", forKey: "DUB") {
+    print("The old value for DUB was \(oldValue).")
+}
+
+//You can also use subscript syntax to retrieve a value from the dictionary for a particular key.
+if let airportName = airports["DUB"] {
+    print("The name of the airport is \(airportName).")
+}
+
+//You can use subscript syntax to remove a key-value pair from a dictionary by assigning a value of nil for that key:
+airports["APL"] = "Apple International"// "Apple International" is not the real airport for APL, so delete it
+airports["APL"] = nil// APL has now been removed from the dictionary
+print(airports)
+
+//Alternatively, remove a key-value pair from a dictionary with the removeValue(forKey:) method. This method removes the key-value pair if it exists and returns the removed value, or returns nil if no value existed:
+if let removedValue = airports.removeValue(forKey: "DUB") {
+    print("The removed airport's name is \(removedValue).")
+} else {
+    print("The airports dictionary does not contain a value for DUB.")
+}
+
+//Iterating Over a Dictionary
+for (airportCode, airportName) in airports {
+    print("\(airportCode): \(airportName)")
+}
+
+//You can also retrieve an iterable collection of a dictionary’s keys or values by accessing its keys and values properties:
+for airportCode in airports.keys {
+    print("Airport code: \(airportCode)")
+}
+
+for airportName in airports.values {
+    print("Airport name: \(airportName)")
+}
+
+//If you need to use a dictionary’s keys or values with an API that takes an Array instance, initialize a new array with the keys or values property:
+let airportCodes = [String](airports.keys)// airportCodes is ["YYZ", "LHR"]
+let airportNames = [String](airports.values)// airportNames is ["Toronto Pearson", "London Heathrow"]
+
+//Swift’s Dictionary type does not have a defined ordering. To iterate over the keys or values of a dictionary in a specific order, use the sorted() method on its keys or values property.
