@@ -97,4 +97,56 @@ print(reduceBookNamesOnDic2)
 let reducedSet = lengthInMeters.reduce(5.0) {$0 + $1}
 print(reducedSet)
 
-//FlatMap
+//FlatMap : Flatmap is used to flatten a collection of collections . But before flattening the collection, we can apply map to each elements. Flatmap returns an array containing the concatenated results of calling the given transformation with each element of this sequence. We can apply flatmap on collection of collections. ie; an array of arrays will be flattened to a single array. So, the flatmap closure takes a single collection of argument, do something with this collection and /or return the collection. Here , before returning the collection, we can apply filter or map or even reduce.
+let codes = [["abc", "def", "ghi"], ["abc", "def", "ghi"]]
+let newCodes = codes.flatMap {$0.map {$0.uppercased()}}
+print(newCodes)
+
+let codes1 = ["abc", "def", "ghi"]
+let newCodes1 = codes1.flatMap {$0.map {$0.uppercased()}}
+print(newCodes1)
+
+let codes2 = ["Nuibb Hasan"]
+let newCodes2 = codes2.flatMap {$0.uppercased()}
+print(newCodes2)
+
+//Flatmap on Array
+let numberArrayForFlatmap = [[1,2,3], [4,5]]
+print(numberArrayForFlatmap.flatMap{$0})
+
+let numberArrayForFlatmap1 = [1,2,3]
+print(numberArrayForFlatmap1.flatMap{$0})//returns same array
+
+//Flatmap on array of dictionaries - It returns an array of tuples after flatmapping. We have to convert it to an array:
+let dictArrayForFlatMap = [["key1":"value1", "key2":"value2"], ["key3":"value3"]]
+let flatMapDict = dictArrayForFlatMap.flatMap{$0}
+print(flatMapDict)
+var dictionary = [String: String]()
+
+flatMapDict.forEach { (key, value) in
+    dictionary[key] = value
+}
+print(dictionary) //or
+
+flatMapDict.forEach {
+    dictionary[$0.0] = $0.1
+}
+print(dictionary)
+type(of: dictionary)
+
+//Flatmap on set
+let numberSet = [Set([4.0,6.2,8.9]), Set([9.9])]
+let flatMapSet = numberSet.flatMap{$0}
+print(flatMapSet)
+
+//Chaining methods
+let arrayOfArrays = [[1,2,3,4], [5,6,7,8,4]]
+let squareOfEvenNumbers = arrayOfArrays.flatMap {$0}.filter{$0 % 2 == 0}.map{$0 * $0}
+let sumOfSquareOfEvenNumbers = squareOfEvenNumbers.reduce(0,+)
+print(sumOfSquareOfEvenNumbers)
+
+//CompactMap
+let arrayWithNil = [1,nil,3,4,nil]
+print(arrayWithNil.compactMap{$0})
+
+//Note : If you do compactmap a collection containing optional values, it will only consider the non-nil values. This doesn’t do anything on sets and dictionaries as Sets cannot have nil values and for dictionary, the compactmap will give an array of tuples with key and value. In swift 5, compactMapValues() is introduced which adds functionality to dictionary as well.
