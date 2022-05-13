@@ -1,6 +1,6 @@
 import UIKit
 
-// MARK: Substring, Trimming and Splitting of String
+// MARK: String Indexing, Substring, Trimming and Splitting
 
 let greeting = "Hello World!"
 greeting[greeting.startIndex]
@@ -41,3 +41,18 @@ func getMessage(_ message: String, k: Int) -> String {
 
 let input = "To crop or not to crop"
 let msg = getMessage(input, k: 21)
+
+// MARK: Get Mejority Element
+func getMejorityElement(n: Int, A: [Int]) -> Int {
+    let mappedItems = A.map { ($0, 1) }
+    let itemsByCount = Dictionary(mappedItems, uniquingKeysWith: +)
+    let pairByMajority = itemsByCount.filter {$1 > n}
+    guard let majority = pairByMajority.first else { return 0 }
+    return majority.key
+}
+
+let a = [1,1,2]
+a.count
+let threshold = Int(floor(Double(a.count/2)))
+let result = getMejorityElement(n: threshold, A: a)
+result
