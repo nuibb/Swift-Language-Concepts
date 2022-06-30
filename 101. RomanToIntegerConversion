@@ -1,0 +1,51 @@
+import UIKit
+
+extension String {
+    subscript(i: Int) -> String {
+        return  i < count ? String(self[index(startIndex, offsetBy: i)]) : ""
+    }
+}
+
+class Solution {
+    var sum = 0
+    
+    func addOrSubtract(s: String, index: Int, ch1: String, ch2: String, value: Int) {
+        if index + 1 < s.count && s[index+1] == ch1 || s[index+1] == ch2 {
+            sum -= value
+        } else {
+            sum = sum + value
+        }
+    }
+    
+    func romanToInt(_ s: String) -> Int {
+        for (index, charecter) in s.enumerated() {
+            switch(charecter) {
+            case "M":
+                sum += 1000
+            case "D":
+                sum += 500
+            case "C":
+                addOrSubtract(s: s, index: index, ch1: "D", ch2: "M", value: 100)
+            case "L":
+                sum += 50
+            case "X":
+                addOrSubtract(s: s, index: index, ch1: "L", ch2: "C", value: 10)
+            case "V":
+                sum += 5
+            case "I":
+                addOrSubtract(s: s, index: index, ch1: "V", ch2: "X", value: 1)
+            default:
+                return sum
+            }
+        }
+        return sum
+    }
+}
+
+let sol = Solution()
+sol.romanToInt("MCMXCIV")
+
+
+
+
+

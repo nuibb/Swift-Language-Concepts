@@ -4,7 +4,7 @@ import UIKit
 let arrayOfInt = [2,3,4,5,4,7,2]
 let newArrUsingMap = arrayOfInt.map { $0 * 10 }
 print(newArrUsingMap)
-let newArrUsingMap1 = arrayOfInt.map { val in val * 5 }
+let newArrUsingMap1 = arrayOfInt.map { val in val * 10 }
 print(newArrUsingMap1)
 
 //Map on Dictionary:
